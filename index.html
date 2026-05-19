@@ -104,21 +104,6 @@
       transition: width 0.08s linear;
     }
 
-    /* ── READING VEIL ───────────────────────────────────── */
-    #reading-veil {
-      position: fixed; inset: 0;
-      z-index: 0;
-      background: rgba(44, 8, 23, 0.62);
-      pointer-events: none;
-      opacity: 1;
-      transition: opacity 0.75s ease;
-      will-change: opacity;
-    }
-    body.scrolling #reading-veil {
-      opacity: 0;
-      transition: opacity 0.18s ease;
-    }
-
     /* ── FIXED VIDEO STAGE ──────────────────────────────── */
     #video-stage {
       position: fixed; inset: 0; z-index: 0;
@@ -406,10 +391,6 @@
   <video id="main-video" muted playsinline preload="auto" disablePictureInPicture></video>
   <div id="video-overlay"></div>
 </div>
-
-<!-- READING VEIL: dark layer between video and content.
-     Visible when stopped (content readable), invisible when scrolling (video dominates) -->
-<div id="reading-veil" aria-hidden="true"></div>
 
 <!-- SCROLLABLE CONTENT -->
 <div id="content">
@@ -1127,18 +1108,6 @@
 
 
 <script>
-  // ─── READING VEIL: video domina en scroll, contenido en pausa ──
-  ;(function() {
-    let _scrollTimer;
-    window.addEventListener('scroll', function() {
-      document.body.classList.add('scrolling');
-      clearTimeout(_scrollTimer);
-      _scrollTimer = setTimeout(function() {
-        document.body.classList.remove('scrolling');
-      }, 320);
-    }, { passive: true });
-  })();
-
   gsap.registerPlugin(ScrollTrigger);
 
   // ─── DOM refs ──────────────────────────────────────────────
