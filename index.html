@@ -1265,69 +1265,78 @@
     mainVideo.src = src;
     mainVideo.load();
 
+    let activated = false;
+
+    function activate() {
+      if (activated) return;
+      activated = true;
+
+      const dur = mainVideo.duration || 0;
+      mainVideo.classList.add('ready');
+      loaderFill.style.width = '100%';
+      if (loaderPct) loaderPct.textContent = '100%';
+
+      setTimeout(() => {
+        loaderEl.classList.add('out');
+        document.body.classList.remove('loading');
+        setTimeout(() => { loaderEl.style.display = 'none'; }, 1000);
+      }, 400);
+
+      // Seek-on-seeked: coalesce seeks to prevent decoder queue buildup
+      let _scrubTarget = 0;
+      let _scrubPending = false;
+
+      mainVideo.addEventListener('seeked', () => {
+        if (_scrubPending) {
+          _scrubPending = false;
+          mainVideo.currentTime = _scrubTarget;
+        }
+      });
+
+      if (dur > 0) {
+        ScrollTrigger.create({
+          trigger: '#content',
+          start: 'top top',
+          end: 'bottom bottom',
+          onUpdate: self => {
+            _scrubTarget = self.progress * dur;
+            if (!mainVideo.seeking) {
+              mainVideo.currentTime = _scrubTarget;
+            } else {
+              _scrubPending = true;
+            }
+          }
+        });
+      }
+    }
+
+    // Mobile fallback: if canplaythrough never fires, unlock the page after 8s
+    const canplaythroughTimeout = setTimeout(activate, 8000);
+
     mainVideo.addEventListener('canplaythrough', () => {
+      clearTimeout(canplaythroughTimeout);
       mainVideo.pause();
       const dur = mainVideo.duration;
       const _rVFC = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
 
       if (!Number.isFinite(dur) || dur === 0) {
-        mainVideo.classList.add('ready');
-        loaderFill.style.width = '100%';
-        if (loaderPct) loaderPct.textContent = '100%';
-        loaderEl.classList.add('out');
-        document.body.classList.remove('loading');
-        setTimeout(() => { loaderEl.style.display = 'none'; }, 1000);
+        activate();
         return;
       }
 
       const warmPoints = [0, 0.18, 0.36, 0.54, 0.72, 0.9];
       let wi = 0;
 
+      // Fallback: if warmup seeks hang (common on mobile), unlock after 6s
+      const warmupTimeout = setTimeout(activate, 6000);
+
       function warmNext() {
         if (wi >= warmPoints.length) {
+          clearTimeout(warmupTimeout);
           // Volver a frame 0 y esperar que renderice antes de revelar
           mainVideo.currentTime = 0;
-
-          const activate = () => {
-            mainVideo.classList.add('ready');
-            loaderFill.style.width = '100%';
-            if (loaderPct) loaderPct.textContent = '100%';
-
-            setTimeout(() => {
-              loaderEl.classList.add('out');
-              document.body.classList.remove('loading');
-              setTimeout(() => { loaderEl.style.display = 'none'; }, 1000);
-            }, 400);
-
-            // Seek-on-seeked: coalesce seeks to prevent decoder queue buildup
-            let _scrubTarget = 0;
-            let _scrubPending = false;
-
-            mainVideo.addEventListener('seeked', () => {
-              if (_scrubPending) {
-                _scrubPending = false;
-                mainVideo.currentTime = _scrubTarget;
-              }
-            });
-
-            ScrollTrigger.create({
-              trigger: '#content',
-              start: 'top top',
-              end: 'bottom bottom',
-              onUpdate: self => {
-                _scrubTarget = self.progress * dur;
-                if (!mainVideo.seeking) {
-                  mainVideo.currentTime = _scrubTarget;
-                } else {
-                  _scrubPending = true;
-                }
-              }
-            });
-          };
-
           if (_rVFC) mainVideo.requestVideoFrameCallback(activate);
           else setTimeout(activate, 50);
-
           return;
         }
 
