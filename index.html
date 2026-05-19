@@ -369,13 +369,21 @@
 
     /* ── MOBILE OVERRIDES (desktop intacto) ────────────────── */
     @media (max-width: 640px) {
-      /* Loader title: evitar hyphenación automática que parte "tiempos" */
+      /* Loader title: evitar hyphenación que parte "tiempos" */
       .loader-title {
         font-size: 1.45rem;
         hyphens: none;
         word-break: keep-all;
         overflow-wrap: normal;
       }
+      /* Hero H1: reducir tamaño y ocultar <br> para evitar "tiem / posdel fental." */
+      #hero h1 {
+        font-size: 2.4rem !important;
+        line-height: 1.15 !important;
+        hyphens: none;
+        word-break: keep-all;
+      }
+      #hero h1 br { display: none; }
     }
     @media (max-width: 768px) {
       /* Veil en reposo: más rápido que desktop para sentirse responsivo */
@@ -391,6 +399,10 @@
       /* Secciones: transición de fondo más corta — menos carga GPU mobile */
       section {
         transition: background 0.75s ease;
+      }
+      /* Video overlay: agregar transición para evitar el flash abrupto al scrollear */
+      #video-overlay {
+        transition: opacity 0.4s ease;
       }
     }
   </style>
