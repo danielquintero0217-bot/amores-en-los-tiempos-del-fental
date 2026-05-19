@@ -379,14 +379,11 @@
         word-break: keep-all;
         overflow-wrap: normal;
       }
-      /* Hero H1: tamaño menor + .h1-break inline para flujo natural */
+      /* Hero H1: fuente más pequeña, .h1-break sigue siendo block (2 líneas limpias) */
       #hero h1 {
-        font-size: 2.4rem !important;
-        line-height: 1.2 !important;
-        hyphens: none;
-        word-break: keep-all;
+        font-size: 1.5rem !important;
+        line-height: 1.25 !important;
       }
-      .h1-break { display: inline; }
     }
     @media (max-width: 768px) {
       /* Veil en reposo: más rápido que desktop para sentirse responsivo */
