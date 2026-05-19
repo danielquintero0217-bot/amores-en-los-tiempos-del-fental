@@ -367,6 +367,9 @@
       opacity: 0;
     }
 
+    /* Desktop: .h1-break actúa como <br> */
+    .h1-break { display: block; }
+
     /* ── MOBILE OVERRIDES (desktop intacto) ────────────────── */
     @media (max-width: 640px) {
       /* Loader title: evitar hyphenación que parte "tiempos" */
@@ -376,14 +379,14 @@
         word-break: keep-all;
         overflow-wrap: normal;
       }
-      /* Hero H1: reducir tamaño y ocultar <br> para evitar "tiem / posdel fental." */
+      /* Hero H1: tamaño menor + .h1-break inline para flujo natural */
       #hero h1 {
         font-size: 2.4rem !important;
-        line-height: 1.15 !important;
+        line-height: 1.2 !important;
         hyphens: none;
         word-break: keep-all;
       }
-      #hero h1 br { display: none; }
+      .h1-break { display: inline; }
     }
     @media (max-width: 768px) {
       /* Veil en reposo: más rápido que desktop para sentirse responsivo */
@@ -466,7 +469,7 @@
 
       <h1 class="font-disp txt-yellow"
         style="font-size: clamp(3.2rem, 8vw, 6.5rem); line-height: 1.05; margin-bottom: 1.5rem;">
-        Amor en los tiempos<br>del fental.
+        Amor en los tiempos<span class="h1-break"> del fental.</span>
       </h1>
 
       <p class="rv" style="font-size:0.72rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(245,224,208,0.5); margin-bottom:3.5rem;">
