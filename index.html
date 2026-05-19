@@ -104,6 +104,21 @@
       transition: width 0.08s linear;
     }
 
+    /* ── READING VEIL ───────────────────────────────────── */
+    #reading-veil {
+      position: fixed; inset: 0;
+      z-index: 0;
+      background: rgba(44, 8, 23, 0.62);
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.75s ease;
+      will-change: opacity;
+    }
+    body.scrolling #reading-veil {
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
     /* ── FIXED VIDEO STAGE ──────────────────────────────── */
     #video-stage {
       position: fixed; inset: 0; z-index: 0;
@@ -391,6 +406,10 @@
   <video id="main-video" muted playsinline preload="auto" disablePictureInPicture></video>
   <div id="video-overlay"></div>
 </div>
+
+<!-- READING VEIL: dark layer between video and content.
+     Visible when stopped (content readable), invisible when scrolling (video dominates) -->
+<div id="reading-veil" aria-hidden="true"></div>
 
 <!-- SCROLLABLE CONTENT -->
 <div id="content">
@@ -1108,6 +1127,18 @@
 
 
 <script>
+  // ─── READING VEIL: video domina en scroll, contenido en pausa ──
+  ;(function() {
+    let _scrollTimer;
+    window.addEventListener('scroll', function() {
+      document.body.classList.add('scrolling');
+      clearTimeout(_scrollTimer);
+      _scrollTimer = setTimeout(function() {
+        document.body.classList.remove('scrolling');
+      }, 320);
+    }, { passive: true });
+  })();
+
   gsap.registerPlugin(ScrollTrigger);
 
   // ─── DOM refs ──────────────────────────────────────────────
@@ -1265,13 +1296,28 @@
               setTimeout(() => { loaderEl.style.display = 'none'; }, 1000);
             }, 400);
 
+            // Seek-on-seeked: coalesce seeks to prevent decoder queue buildup
+            let _scrubTarget = 0;
+            let _scrubPending = false;
+
+            mainVideo.addEventListener('seeked', () => {
+              if (_scrubPending) {
+                _scrubPending = false;
+                mainVideo.currentTime = _scrubTarget;
+              }
+            });
+
             ScrollTrigger.create({
               trigger: '#content',
               start: 'top top',
               end: 'bottom bottom',
               onUpdate: self => {
-                mainVideo.currentTime = self.progress * dur;
-                if (!mainVideo.paused) mainVideo.pause();
+                _scrubTarget = self.progress * dur;
+                if (!mainVideo.seeking) {
+                  mainVideo.currentTime = _scrubTarget;
+                } else {
+                  _scrubPending = true;
+                }
               }
             });
           };
@@ -1306,7 +1352,7 @@
 
   (async () => {
     try {
-      const response = await fetch('assets/video-completo-02.mp4');
+      const response = await fetch('assets/video-completo-02-gop24.mp4');
       const total = parseInt(response.headers.get('Content-Length') || '0', 10);
       const reader = response.body.getReader();
       const chunks = [];
@@ -1319,14 +1365,14 @@
         received += value.length;
         const p = total
           ? Math.min((received / total) * 85, 85)
-          : Math.min((received / (48 * 1024 * 1024)) * 85, 85);
+          : Math.min((received / (19 * 1024 * 1024)) * 85, 85);
         loaderFill.style.width = p + '%';
         if (loaderPct) loaderPct.textContent = Math.round(p) + '%';
       }
 
       enableVideo(URL.createObjectURL(new Blob(chunks, { type: 'video/mp4' })));
     } catch {
-      enableVideo('assets/video-chica-tinta.mp4');
+      enableVideo('assets/video-completo-02-gop24.mp4');
     }
   })();
 
