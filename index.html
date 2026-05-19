@@ -366,6 +366,33 @@
       transform: translate(-50%, -50%);
       opacity: 0;
     }
+
+    /* ── MOBILE OVERRIDES (desktop intacto) ────────────────── */
+    @media (max-width: 640px) {
+      /* Loader title: evitar hyphenación automática que parte "tiempos" */
+      .loader-title {
+        font-size: 1.45rem;
+        hyphens: none;
+        word-break: keep-all;
+        overflow-wrap: normal;
+      }
+    }
+    @media (max-width: 768px) {
+      /* Veil en reposo: más rápido que desktop para sentirse responsivo */
+      #reading-veil {
+        transition: opacity 0.55s ease;
+        transform: translateZ(0);
+      }
+      /* Veil durante scroll: menos abrupto (0.18s → 0.42s) */
+      body.scrolling #reading-veil {
+        opacity: 0;
+        transition: opacity 0.42s ease;
+      }
+      /* Secciones: transición de fondo más corta — menos carga GPU mobile */
+      section {
+        transition: background 0.75s ease;
+      }
+    }
   </style>
 </head>
 
