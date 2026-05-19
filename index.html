@@ -104,6 +104,19 @@
       transition: width 0.08s linear;
     }
 
+    /* ── READING VEIL ───────────────────────────────────── */
+    #reading-veil {
+      position: fixed; inset: 0;
+      z-index: 0;
+      background: rgba(44, 8, 23, 0.62);
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.75s ease;
+      will-change: opacity;
+    }
+    body.scrolling #reading-veil { opacity: 0; transition: opacity 0.18s ease; }
+    body.veil-off   #reading-veil { opacity: 0; transition: opacity 0.5s ease; }
+
     /* ── FIXED VIDEO STAGE ──────────────────────────────── */
     #video-stage {
       position: fixed; inset: 0; z-index: 0;
@@ -391,6 +404,9 @@
   <video id="main-video" muted playsinline preload="auto" disablePictureInPicture></video>
   <div id="video-overlay"></div>
 </div>
+
+<!-- READING VEIL: desaparece al scrollear, se apaga permanentemente desde #propuesta-audiovisual -->
+<div id="reading-veil" aria-hidden="true"></div>
 
 <!-- SCROLLABLE CONTENT -->
 <div id="content">
@@ -1108,6 +1124,16 @@
 
 
 <script>
+  // ─── READING VEIL ──────────────────────────────────────────
+  ;(function() {
+    let _t;
+    window.addEventListener('scroll', function() {
+      document.body.classList.add('scrolling');
+      clearTimeout(_t);
+      _t = setTimeout(function() { document.body.classList.remove('scrolling'); }, 320);
+    }, { passive: true });
+  })();
+
   gsap.registerPlugin(ScrollTrigger);
 
   // ─── DOM refs ──────────────────────────────────────────────
@@ -1198,6 +1224,14 @@
       }
     });
   }
+
+  // Desde #propuesta-audiovisual: apagar el reading-veil permanentemente
+  ScrollTrigger.create({
+    trigger: '#propuesta-audiovisual',
+    start: 'top 85%',
+    onEnter:     () => document.body.classList.add('veil-off'),
+    onLeaveBack: () => document.body.classList.remove('veil-off'),
+  });
 
   // ─── PEN WRITE ANIMATION — títulos se escriben carácter a carácter ───
   function penWrite(selector) {
