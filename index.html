@@ -274,14 +274,11 @@
       margin-bottom: 0.5rem;
     }
     .char-body {
-      font-size: 0.98rem;
-      line-height: 1.75;
-      color: var(--warm-white);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(245,224,208,0.78);
     }
-    .char-body.italic { font-style: italic; color: rgba(245,224,208,0.72); }
-    .char-label {
-      color: rgba(232,255,0,0.65);
-    }
+    .char-body.italic { font-style: italic; color: rgba(245,224,208,0.6); }
 
     /* ── FILM REFERENCE CARDS ───────────────────────────── */
     .film-card {
@@ -451,204 +448,6 @@
     /* ── REVEAL BASE ────────────────────────────────────── */
     .rv { opacity: 0; transform: translateY(28px); }
 
-    /* ── IMAGE GRID (tratamiento + universo) ──────────── */
-    .img-grid {
-      display: grid;
-      gap: 1.25rem;
-      margin-top: 3rem;
-    }
-    .img-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .img-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
-    @media (max-width: 768px) {
-      .img-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
-      .img-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
-    }
-    .img-frame {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16/10;
-      border: 1px solid rgba(232,255,0,0.10);
-      background: rgba(44,8,23,0.60);
-    }
-    .img-frame img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: saturate(0.92) contrast(1.05);
-      transition: filter 0.5s ease, transform 0.7s ease;
-    }
-    .img-frame:hover img {
-      filter: saturate(1.1) contrast(1.1);
-      transform: scale(1.04);
-    }
-    .img-frame::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(44,8,23,0.55) 100%);
-      pointer-events: none;
-    }
-    .img-caption {
-      position: absolute;
-      left: 0; bottom: 0;
-      padding: 0.75rem 1rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(232,255,0,0.78);
-      z-index: 2;
-    }
-
-    /* ── FILM POSTER (moodboard) ──────────────────────── */
-    .film-poster {
-      aspect-ratio: 2/3;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(232,255,0,0.10);
-    }
-    .film-poster::before {
-      content: '';
-      position: absolute; inset: 0;
-      pointer-events: none;
-      background-blend-mode: multiply;
-      z-index: 0;
-    }
-    .poster-paris::before {
-      background:
-        radial-gradient(ellipse at 60% 30%, rgba(232,180,80,0.55) 0%, transparent 60%),
-        linear-gradient(160deg, #3a1410 0%, #6a2818 45%, #c0521e 100%);
-    }
-    .poster-void::before {
-      background:
-        radial-gradient(circle at 30% 70%, rgba(232,32,180,0.65) 0%, transparent 55%),
-        radial-gradient(circle at 70% 30%, rgba(40,200,255,0.55) 0%, transparent 50%),
-        linear-gradient(140deg, #1a0828 0%, #6a1444 50%, #2c0848 100%);
-    }
-    .poster-submarine::before {
-      background:
-        radial-gradient(ellipse at 50% 30%, rgba(232,232,160,0.4) 0%, transparent 60%),
-        linear-gradient(160deg, #2a3848 0%, #3e5060 50%, #c8b860 100%);
-    }
-    .film-poster > * { position: relative; z-index: 1; }
-    .poster-year {
-      font-family: var(--font-body);
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      color: rgba(255,255,255,0.85);
-      align-self: flex-start;
-      padding: 0.25rem 0.6rem;
-      border: 1px solid rgba(255,255,255,0.35);
-    }
-    .poster-title {
-      font-family: var(--font-disp);
-      font-size: clamp(2.1rem, 3vw, 2.8rem);
-      line-height: 1;
-      color: #fff;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.55);
-    }
-    .poster-director {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-      margin-top: 0.4rem;
-    }
-
-    /* ── CONNECTION BADGE (presupuesto ↔ financiamiento) ─ */
-    .conn-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.55rem 1rem;
-      background: rgba(232,255,0,0.10);
-      border: 1px solid rgba(232,255,0,0.32);
-      color: var(--warm-white);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      margin-top: 1.25rem;
-    }
-    .conn-badge .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--yellow);
-      box-shadow: 0 0 12px rgba(232,255,0,0.8);
-    }
-
-    /* ── PROS / CONS ITEMS — animated entry ───────────── */
-    .pc-list li {
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-    .pros-cons-card.pc-active .pc-list li {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .pros-cons-card.pc-active .pc-list li:nth-child(1) { transition-delay: 0.10s; }
-    .pros-cons-card.pc-active .pc-list li:nth-child(2) { transition-delay: 0.25s; }
-    .pros-cons-card.pc-active .pc-list li:nth-child(3) { transition-delay: 0.40s; }
-    .pc-list .pc-mark {
-      transform: scale(0.6);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .pros-cons-card.pc-active .pc-list li .pc-mark { transform: scale(1); }
-
-    /* ── EXHIBICIÓN — animated trajectory ─────────────── */
-    .festival-list li {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-      position: relative;
-    }
-    .festival-list.fl-active li { opacity: 1; transform: translateY(0); }
-    .festival-list.fl-active li:nth-child(1) { transition-delay: 0.08s; }
-    .festival-list.fl-active li:nth-child(2) { transition-delay: 0.20s; }
-    .festival-list.fl-active li:nth-child(3) { transition-delay: 0.32s; }
-    .festival-list.fl-active li:nth-child(4) { transition-delay: 0.44s; }
-    .festival-list.fl-active li:nth-child(5) { transition-delay: 0.56s; }
-    .festival-list li::before {
-      content: '';
-      position: absolute;
-      left: -1.25rem; top: 1.4rem;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--yellow);
-      opacity: 0;
-      transform: scale(0.2);
-      transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
-    }
-    .festival-list.fl-active li::before {
-      opacity: 1; transform: scale(1);
-    }
-    .festival-list {
-      position: relative;
-      padding-left: 1.5rem;
-    }
-    .festival-list::before {
-      content: '';
-      position: absolute;
-      left: -1.05rem; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(180deg, rgba(232,255,0,0.7) 0%, rgba(232,255,0,0.05) 100%);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 1.4s cubic-bezier(0.4,0,0.2,1) 0.3s;
-    }
-    .festival-list.fl-active::before { transform: scaleY(1); }
-
-    /* ── HIGHLIGHTED WORDS IN CHARACTER CARDS ─────────── */
-    .char-body .hl {
-      color: var(--yellow);
-      font-weight: 500;
-    }
-    .char-body .hl-warm {
-      color: var(--warm-white);
-      font-weight: 500;
-    }
-
     /* ── CUSTOM CURSOR — PLUMA ──────────────────────────── */
     @media (pointer: fine) {
       * { cursor: none !important; }
@@ -811,16 +610,16 @@
       <span class="rv section-label">Sinopsis</span>
 
       <p class="rv"
-        style="font-size:clamp(1.3rem,3vw,1.9rem); line-height:1.8; color:var(--warm-white); max-width:900px; margin-bottom:2.5rem;">
+        style="font-size:clamp(1.3rem,3.2vw,2rem); line-height:1.75; color:var(--warm-white); max-width:880px; margin-bottom:2.5rem;">
         Carlos, un escritor en crisis, encuentra en Leila una ilusión de escape.
         Juntos se sumergen en un amor tan intenso como destructivo,
         donde la pasión y la adicción se funden hasta volverse indistinguibles.
       </p>
 
       <p class="rv"
-        style="font-size:clamp(1.3rem,3vw,1.9rem); line-height:1.8; color:var(--warm-white); max-width:900px;">
+        style="font-size:clamp(1rem,2.2vw,1.3rem); line-height:1.8; color:rgba(245,224,208,0.75); max-width:780px; font-style:italic;">
         Cuando todo comienza a desmoronarse, Carlos descubre que Leila no es solo una mujer,
-        sino la <strong style="color:var(--yellow); font-weight:500;">encarnación de la droga</strong> que lo consume.
+        sino la encarnación de la droga que lo consume.
       </p>
     </div>
   </section>
@@ -841,25 +640,23 @@
       <div class="grid md:grid-cols-3 gap-8">
 
         <!-- CARLOS -->
-        <div class="glass rv" style="padding:2.5rem;">
+        <div class="glass rv" style="padding:2.25rem;">
           <span class="char-badge">Protagonista</span>
-          <h3 style="font-size:1.55rem; font-weight:600; color:var(--warm-white); margin-bottom:0.3rem;">Carlos Álvarez</h3>
+          <h3 style="font-size:1.4rem; font-weight:600; color:var(--warm-white); margin-bottom:0.3rem;">Carlos Álvarez</h3>
           <p class="char-stats">30 años · 1,74 m · 60 kg · Escritor</p>
           <p class="char-body">
-            Carlos es un escritor en <span class="hl">crisis existencial</span>, atrapado entre la
-            <span class="hl-warm">nostalgia de su juventud</span> y la
-            <span class="hl-warm">parálisis emocional</span> de la adultez. Tiene talento, pero
+            Carlos es un escritor en crisis existencial, atrapado entre la nostalgia
+            de su juventud y la parálisis emocional de la adultez. Tiene talento, pero
             arrastra una rutina que ya no lo inspira.
           </p>
 
           <div class="char-block">
             <p class="char-label">Rasgos psicológicos</p>
             <p class="char-body">
-              <span class="hl">Introvertido, obsesivo, autoindulgente.</span> Carga con una
-              melancolía constante que lo empuja a buscar escape en el
-              <span class="hl-warm">placer efímero</span>. Sensibilidad aguda,
+              Introvertido, obsesivo, autoindulgente. Carga con una melancolía constante
+              que lo empuja a buscar escape en el placer efímero. Sensibilidad aguda,
               pero ha perdido el filtro hacia el mundo. Profundamente emocional,
-              <span class="hl-warm">incapaz de sostener vínculos reales</span>.
+              incapaz de sostener vínculos reales.
             </p>
           </div>
 
@@ -868,37 +665,36 @@
             <p class="char-body">
               De escritor funcional pero emocionalmente vacío, a un hombre consumido
               por una relación adictiva que lo obliga a confrontar su propia
-              <span class="hl">autodestrucción</span>.
+              autodestrucción.
             </p>
           </div>
 
           <div class="char-block">
             <p class="char-label">Símbolo</p>
             <p class="char-body italic">
-              Representa la <strong style="color:var(--warm-white); font-style:normal; font-weight:500;">fragilidad del deseo humano</strong>
-              cuando se convierte en dependencia.
+              Representa la fragilidad del deseo humano cuando se convierte en
+              dependencia.
             </p>
           </div>
         </div>
 
         <!-- LEILA -->
-        <div class="glass rv" style="padding:2.5rem; border-color:rgba(204,17,17,0.28);">
+        <div class="glass rv" style="padding:2.25rem; border-color:rgba(204,17,17,0.28);">
           <span class="char-badge" style="border-color:rgba(204,17,17,0.35); color:rgba(204,80,80,0.85);">Antagonista emocional</span>
-          <h3 style="font-size:1.55rem; font-weight:600; color:var(--warm-white); margin-bottom:0.3rem;">Leila</h3>
+          <h3 style="font-size:1.4rem; font-weight:600; color:var(--warm-white); margin-bottom:0.3rem;">Leila</h3>
           <p class="char-stats">24 años · 1,61 m · 49 kg</p>
           <p class="char-body">
-            Leila es una <span class="hl">figura enigmática y magnética</span>. Atrae con su
-            espontaneidad, su belleza casi infantil y una <span class="hl-warm">energía imposible</span>.
-            Es todo lo que Carlos siente que ha perdido: juventud, deseo, vitalidad, intensidad.
+            Leila es una figura enigmática y magnética. Atrae con su espontaneidad,
+            su belleza casi infantil y una energía imposible. Es todo lo que Carlos
+            siente que ha perdido: juventud, deseo, vitalidad, intensidad.
           </p>
 
           <div class="char-block" style="border-top-color:rgba(204,17,17,0.15);">
             <p class="char-label">Rasgos psicológicos</p>
             <p class="char-body">
-              <span class="hl">Impenetrable, intensa, evasiva.</span> No se deja conocer del todo.
-              Parece libre, pero esconde una oscuridad que desborda en momentos.
-              <span class="hl-warm">Nunca se entrega por completo</span> — en esa ausencia,
-              Carlos proyecta todo su deseo.
+              Impenetrable, intensa, evasiva. No se deja conocer del todo. Parece libre,
+              pero esconde una oscuridad que desborda en momentos. Nunca se entrega
+              por completo — en esa ausencia, Carlos proyecta todo su deseo.
             </p>
           </div>
 
@@ -908,37 +704,35 @@
               No cambia. Leila permanece como una constante, pero esa constancia es
               la ilusión misma. Su función narrativa es exponer la transformación de
               Carlos, revelándose finalmente no como una mujer, sino como la
-              <span class="hl">encarnación de la adicción</span>.
+              encarnación de la adicción.
             </p>
           </div>
 
           <div class="char-block" style="border-top-color:rgba(204,17,17,0.15);">
             <p class="char-label">Símbolo</p>
             <p class="char-body italic">
-              La atracción fatal entre placer y destrucción.
-              <strong style="color:var(--warm-white); font-style:normal; font-weight:500;">El amor como droga.</strong>
+              La atracción fatal entre placer y destrucción. El amor como droga.
             </p>
           </div>
         </div>
 
         <!-- CECILIA -->
-        <div class="glass rv" style="padding:2.5rem;">
+        <div class="glass rv" style="padding:2.25rem;">
           <span class="char-badge">Secundario</span>
-          <h3 style="font-size:1.55rem; font-weight:600; color:var(--warm-white); margin-bottom:0.3rem;">Cecilia</h3>
+          <h3 style="font-size:1.4rem; font-weight:600; color:var(--warm-white); margin-bottom:0.3rem;">Cecilia</h3>
           <p class="char-stats">64 años · 1,57 m · 49 kg · Madre</p>
           <p class="char-body">
-            Cecilia, madre de Carlos, es una mujer sensible,
-            <span class="hl">estructurada y profundamente preocupada</span> por el bienestar de su hijo.
-            Representa el mundo del orden, el <span class="hl-warm">afecto maternal</span> y la
-            <span class="hl-warm">vida antes del colapso</span>.
+            Cecilia, madre de Carlos, es una mujer sensible, estructurada y
+            profundamente preocupada por el bienestar de su hijo. Representa el mundo
+            del orden, el afecto maternal y la vida antes del colapso.
           </p>
 
           <div class="char-block">
             <p class="char-label">Rasgos psicológicos</p>
             <p class="char-body">
-              <span class="hl">Cuidadora, exigente, maternal pero agotada.</span> Aunque intenta
-              contener a Carlos con amor, también es constante en presencia y reproche.
-              Mantiene el equilibrio familiar, pero su miedo a perder a su hijo
+              Cuidadora, exigente, maternal pero agotada. Aunque intenta contener
+              a Carlos con amor, también es constante en presencia y reproche.
+              Es de mantener el equilibrio familiar, pero su miedo a perder a su hijo
               la desestabiliza emocionalmente.
             </p>
           </div>
@@ -946,18 +740,18 @@
           <div class="char-block">
             <p class="char-label">Transformación</p>
             <p class="char-body">
-              Pasa de ser una madre firme pero comprensiva, a una
-              <span class="hl">mujer rota</span> ante la caída de su hijo. Su presencia se
-              convierte en símbolo de lo que Carlos está dejando atrás: la estabilidad
-              y la posibilidad de una vida sin excesos.
+              Pasa de ser una madre firme pero comprensiva, a una mujer rota ante
+              la caída de su hijo. Su presencia se convierte en símbolo de lo que
+              Carlos está dejando atrás: la estabilidad y la posibilidad de una
+              vida sin excesos.
             </p>
           </div>
 
           <div class="char-block">
             <p class="char-label">Símbolo</p>
             <p class="char-body italic">
-              Cecilia encarna el contrapunto emocional de Leila.
-              <strong style="color:var(--warm-white); font-style:normal; font-weight:500;">Donde Leila es vértigo, Cecilia es raíz.</strong>
+              Cecilia encarna el contrapunto emocional de Leila. Donde Leila es
+              vértigo, Cecilia es raíz.
             </p>
           </div>
         </div>
@@ -976,48 +770,45 @@
         Un espejo de la realidad
       </h2>
       <p class="rv"
-        style="font-size:clamp(1.25rem,2.8vw,1.55rem); line-height:1.8; color:var(--warm-white); max-width:920px;">
-        Propone una reflexión sobre nuestros <strong style="color:var(--yellow); font-weight:500;">hábitos de consumo</strong>
-        transmitiendo una verdad — un espejo de la realidad, que se construye con el
-        concepto de amor del espectador.
+        style="font-size:clamp(1.2rem,2.6vw,1.5rem); line-height:1.85; color:var(--warm-white); max-width:880px;">
+        Propone una reflexión sobre nuestros hábitos de consumo transmitiendo una verdad —
+        un espejo de la realidad, que se construye con el concepto de amor del espectador.
       </p>
       <p class="rv"
-        style="font-size:clamp(1.15rem,2.4vw,1.4rem); line-height:1.8; color:var(--warm-white); max-width:820px; margin-top:2.5rem; border-left:2px solid var(--yellow); padding-left:1.75rem;">
-        Su impacto radica en mostrar la <em style="color:var(--yellow); font-style:normal;">caída de un desencantado</em> —
-        un romance que arde rápido, seduce y arrastra.
+        style="font-size:clamp(1rem,2.2vw,1.2rem); line-height:1.85; color:rgba(245,224,208,0.72); max-width:760px; margin-top:1.75rem; font-style:italic; border-left:2px solid var(--yellow); padding-left:1.25rem;">
+        Su impacto radica en mostrar la caída de un desencantado, un romance que arde rápido,
+        seduce y arrastra.
       </p>
     </div>
   </section>
 
   <!-- 06. JUSTIFICACIÓN -->
   <section id="justificacion"
-    class="py-40 px-6"
+    class="py-32 px-6"
     style="background: rgba(44,8,23,0.52);">
-    <div class="inner" style="max-width: 1100px;">
-      <span class="rv section-label" style="margin-bottom: 1.5rem;">Justificación</span>
-      <h2 class="rv font-disp txt-yellow" style="font-size:clamp(2rem,5vw,4rem); margin-bottom:4rem; line-height: 1.1;">
-        Traducir la herida<br>en poesía visual
+    <div class="inner">
+      <span class="rv section-label">Justificación</span>
+      <h2 class="rv font-disp txt-yellow" style="font-size:clamp(2rem,5vw,3.8rem); margin-bottom:3rem;">
+        Traducir la herida en poesía visual
       </h2>
 
-      <div class="grid md:grid-cols-2 gap-x-20 gap-y-10">
+      <div class="grid md:grid-cols-2 gap-12">
         <p class="rv"
-          style="font-size:clamp(1.05rem,2.1vw,1.2rem); line-height:2; color:var(--warm-white); letter-spacing: 0.005em;">
-          Traducimos la herida en poesía visual a través de la metáfora de un
-          <span style="color:var(--yellow);">amor nocivo</span>, construyendo una narrativa
-          que sumerge a Carlos en una caótica búsqueda afectiva marcada por una letal adicción
-          al fentanilo. El cortometraje busca generar una reflexión sobre las
-          <strong style="color:var(--yellow); font-weight:500;">dinámicas perniciosas del amor</strong>,
+          style="font-size:clamp(1rem,2.1vw,1.15rem); line-height:1.9; color:var(--warm-white);">
+          Traducimos la herida en poesía visual a través de la metáfora de un amor nocivo,
+          construyendo una narrativa que sumerge a Carlos en una caótica búsqueda afectiva
+          marcada por una letal adicción al fentanilo. El cortometraje busca generar una
+          reflexión sobre las <strong style="color:var(--yellow);">dinámicas perniciosas del amor</strong>,
           permitiendo identificar, a través de las decisiones del protagonista,
           las causas y consecuencias físicas, emocionales y sociales de la adicción.
         </p>
         <p class="rv"
-          style="font-size:clamp(1.05rem,2.1vw,1.2rem); line-height:2; color:var(--warm-white); letter-spacing: 0.005em;">
-          Desde un enfoque <em style="color:var(--yellow); font-style:normal;">crudo y no romantizado</em>,
-          la obra aborda una problemática contemporánea de salud pública,
-          convirtiéndose en una propuesta artística con fuerte relevancia social.
-          Su propuesta estética y temática le otorga potencial dentro del circuito de
-          festivales — abriendo conversaciones sobre salud mental, dependencia emocional,
-          consumo de drogas y el acompañamiento familiar.
+          style="font-size:clamp(1rem,2.1vw,1.15rem); line-height:1.9; color:rgba(245,224,208,0.75);">
+          Desde un enfoque crudo y no romantizado, la obra aborda una problemática
+          contemporánea de salud pública, convirtiéndose en una propuesta artística con
+          fuerte relevancia social. Su propuesta estética y temática le otorga potencial
+          dentro del circuito de festivales — abriendo conversaciones sobre salud mental,
+          dependencia emocional, consumo de drogas y el acompañamiento familiar.
         </p>
       </div>
     </div>
@@ -1077,37 +868,20 @@
 
       <div class="grid md:grid-cols-2 gap-12">
         <p class="rv"
-          style="font-size:clamp(1.05rem,2.1vw,1.2rem); line-height:1.95; color:var(--warm-white);">
-          Una experiencia <strong style="color:var(--yellow); font-weight:500;">sensorial e íntima</strong>
-          donde el amor y la adicción se mezclan hasta volverse indistinguibles.
-          La puesta en escena evoluciona junto al deterioro emocional de Carlos:
-          inicia desde una falsa calma romántica y avanza progresivamente hacia el caos,
-          el agotamiento y la pérdida de identidad.
+          style="font-size:clamp(1rem,2.1vw,1.15rem); line-height:1.9; color:var(--warm-white);">
+          Una experiencia sensorial e íntima donde el amor y la adicción se mezclan hasta
+          volverse indistinguibles. La puesta en escena evoluciona junto al deterioro
+          emocional de Carlos: inicia desde una falsa calma romántica y avanza
+          progresivamente hacia el caos, el agotamiento y la pérdida de identidad.
         </p>
         <p class="rv"
-          style="font-size:clamp(1.05rem,2.1vw,1.2rem); line-height:1.95; color:var(--warm-white);">
+          style="font-size:clamp(1rem,2.1vw,1.15rem); line-height:1.9; color:rgba(245,224,208,0.75);">
           La cámara acompaña al protagonista de manera cercana y vulnerable —
-          movimientos contemplativos, respiraciones largas y planos de
-          <em style="color:var(--yellow); font-style:normal;">vértigo visual</em>
-          para captar la dualidad interna. La voz en off funciona como extensión del
-          pensamiento de Carlos, construyendo una atmósfera enajenada, melancólica
-          y delirante.
+          movimientos contemplativos, respiraciones largas y planos de vértigo visual
+          para captar la dualidad interna. La iluminación acentuará la pérdida del ánimo.
+          La voz en off funciona como extensión del pensamiento de Carlos, construyendo
+          una atmósfera enajenada, melancólica y delirante.
         </p>
-      </div>
-
-      <div class="img-grid cols-3">
-        <div class="img-frame rv">
-          <img src="assets/img/chica-tinta.jpg" alt="Chica de tinta — atmósfera psicodélica" loading="lazy">
-          <span class="img-caption">Tinta · cuerpo</span>
-        </div>
-        <div class="img-frame rv">
-          <img src="assets/img/baila.jpg" alt="Baile — vértigo emocional" loading="lazy">
-          <span class="img-caption">Baile · vértigo</span>
-        </div>
-        <div class="img-frame rv">
-          <img src="assets/img/gota.jpg" alt="Gota — caída sensorial" loading="lazy">
-          <span class="img-caption">Gota · caída</span>
-        </div>
       </div>
     </div>
   </section>
@@ -1137,30 +911,11 @@
         el deterioro emocional del protagonista desde la calma hasta el caos.
       </p>
       <div class="rv" style="border-left:2px solid var(--yellow); padding-left:1.5rem; max-width:760px;">
-        <p style="font-size:1rem; color:var(--warm-white); line-height:1.75;">
-          Inspirado en el <strong style="color:var(--yellow); font-weight:500;">realismo melancólico</strong>
-          y el <strong style="color:var(--yellow); font-weight:500;">delirio psicodélico</strong>.
+        <p style="font-size:0.95rem; color:rgba(245,224,208,0.7); line-height:1.75;">
+          Inspirado en el <strong style="color:var(--warm-white);">realismo melancólico</strong>
+          y el <strong style="color:var(--warm-white);">delirio psicodélico</strong>.
           Una atmósfera de vértigo sensorial donde amor y autodestrucción se funden.
         </p>
-      </div>
-
-      <div class="img-grid cols-4">
-        <div class="img-frame rv">
-          <img src="assets/img/baila.jpg" alt="Noche, vida nocturna en Cali" loading="lazy">
-          <span class="img-caption">Noche · abrazo</span>
-        </div>
-        <div class="img-frame rv">
-          <img src="assets/img/tinta-seca.jpg" alt="Tinta seca, resaca del día" loading="lazy">
-          <span class="img-caption">Día · resaca</span>
-        </div>
-        <div class="img-frame rv">
-          <img src="assets/img/polvo.jpg" alt="Polvo, descontrol" loading="lazy">
-          <span class="img-caption">Polvo · caos</span>
-        </div>
-        <div class="img-frame rv">
-          <img src="assets/img/pastilla.jpg" alt="Pastilla, encarnación de la droga" loading="lazy">
-          <span class="img-caption">Pastilla · final</span>
-        </div>
       </div>
     </div>
   </section>
@@ -1179,59 +934,32 @@
         narrativa que persigue el proyecto.
       </p>
 
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="rv">
-          <div class="film-poster poster-paris">
-            <span class="poster-year">1984</span>
-            <div>
-              <h3 class="poster-title">Paris,<br>Texas</h3>
-              <p class="poster-director">Wim Wenders</p>
-            </div>
-          </div>
-          <div class="film-card">
-            <p class="film-year">1984</p>
-            <h3 class="film-title font-disp">Paris, Texas</h3>
-            <p class="film-director">Wim Wenders</p>
-            <p class="film-note">
-              Melancolía contenida. El silencio como lenguaje emocional y la búsqueda de
-              redención perdida.
-            </p>
-          </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="film-card rv">
+          <p class="film-year">1984</p>
+          <h3 class="film-title font-disp">Paris, Texas</h3>
+          <p class="film-director">Wim Wenders</p>
+          <p class="film-note">
+            Melancolía contenida. El silencio como lenguaje emocional y la búsqueda de
+            redención perdida.
+          </p>
         </div>
-        <div class="rv">
-          <div class="film-poster poster-void">
-            <span class="poster-year">2009</span>
-            <div>
-              <h3 class="poster-title">Enter<br>the Void</h3>
-              <p class="poster-director">Gaspar Noé</p>
-            </div>
-          </div>
-          <div class="film-card">
-            <p class="film-year">2009</p>
-            <h3 class="film-title font-disp">Enter the Void</h3>
-            <p class="film-director">Gaspar Noé</p>
-            <p class="film-note">
-              Inmersión psicodélica total. La experiencia subjetiva del colapso desde adentro.
-            </p>
-          </div>
+        <div class="film-card rv">
+          <p class="film-year">2009</p>
+          <h3 class="film-title font-disp">Enter the Void</h3>
+          <p class="film-director">Gaspar Noé</p>
+          <p class="film-note">
+            Inmersión psicodélica total. La experiencia subjetiva del colapso desde adentro.
+          </p>
         </div>
-        <div class="rv">
-          <div class="film-poster poster-submarine">
-            <span class="poster-year">2010</span>
-            <div>
-              <h3 class="poster-title">Submarine</h3>
-              <p class="poster-director">Richard Ayoade</p>
-            </div>
-          </div>
-          <div class="film-card">
-            <p class="film-year">2010</p>
-            <h3 class="film-title font-disp">Submarine</h3>
-            <p class="film-director">Richard Ayoade</p>
-            <p class="film-note">
-              Romance con tratamiento visual poético. La intensidad de sentir todo por
-              primera vez.
-            </p>
-          </div>
+        <div class="film-card rv">
+          <p class="film-year">2010</p>
+          <h3 class="film-title font-disp">Submarine</h3>
+          <p class="film-director">Richard Ayoade</p>
+          <p class="film-note">
+            Romance con tratamiento visual poético. La intensidad de sentir todo por
+            primera vez.
+          </p>
         </div>
       </div>
     </div>
@@ -1365,17 +1093,13 @@
 
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <!-- Donut chart -->
-        <div class="rv" style="text-align:center;">
+        <div class="rv">
           <div style="max-width:380px; margin:0 auto;">
             <canvas id="chart-presupuesto"></canvas>
           </div>
-          <p style="font-size:0.85rem; color:var(--warm-white); margin-top:1.25rem;">
-            <strong style="color:var(--yellow); font-size:1.15rem;">$8.570.800</strong> COP · Total necesario
+          <p style="text-align:center; font-size:0.85rem; color:var(--warm-white); margin-top:1.25rem;">
+            <strong style="color:var(--yellow); font-size:1.1rem;">$8.570.800</strong> COP · Total
           </p>
-          <div class="conn-badge">
-            <span class="dot"></span>
-            100% cubierto por el plan de financiación
-          </div>
         </div>
 
         <!-- Tables -->
@@ -1425,17 +1149,14 @@
 
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <!-- Bar chart -->
-        <div class="rv" style="text-align:center;">
+        <div class="rv">
           <div style="max-width:480px; margin:0 auto;">
             <canvas id="chart-financiamiento"></canvas>
           </div>
-          <p style="font-size:0.85rem; color:var(--warm-white); margin-top:1.25rem;">
-            <strong style="color:var(--yellow); font-size:1.15rem;">$9.222.200</strong> COP · Total recolectado
+          <p style="text-align:center; font-size:0.85rem; color:var(--warm-white); margin-top:1.25rem;">
+            <strong style="color:var(--yellow); font-size:1.1rem;">$9.222.200</strong> COP · Recolectado
+            <span style="color:var(--yellow); margin-left: 0.5rem;">✓ Meta superada</span>
           </p>
-          <div class="conn-badge">
-            <span class="dot"></span>
-            Cubre $8.570.800 del presupuesto + $651.400 de excedente
-          </div>
         </div>
 
         <div class="rv">
@@ -1933,26 +1654,6 @@
         }
       });
     }
-  });
-
-  // ─── PROS/CONS STAGGER ANIMATION ───────────────────────────
-  document.querySelectorAll('.pros-cons-card').forEach(card => {
-    ScrollTrigger.create({
-      trigger: card,
-      start: 'top 82%',
-      once: true,
-      onEnter: () => card.classList.add('pc-active')
-    });
-  });
-
-  // ─── FESTIVAL LIST — TRAJECTORY REVEAL ─────────────────────
-  document.querySelectorAll('.festival-list').forEach(list => {
-    ScrollTrigger.create({
-      trigger: list,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => list.classList.add('fl-active')
-    });
   });
 
   // ─── CUSTOM CURSOR — PLUMA ─────────────────────────────────
